@@ -1,0 +1,10 @@
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/Exceptions/WriterException.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/myFormatter.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/Main.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/IWriter.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/Exceptions/ReaderException.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/FileIO/myFileReader.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/StringIO/myStringWriter.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/FileIO/myFileWriter.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/IReader.java
+/home/uirii/dev/road_to_formatter/src/main/java/com/project/myformatter/StringIO/myStringReader.java

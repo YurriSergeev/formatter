@@ -1,10 +1,4 @@
-{
-    {
-        aaaa{
-            bbbb;
-            cccc;
-            dddd;
-        }        
-    }    
-    h;
+aaaa{
+    ssss;
+    pppp;
 }
