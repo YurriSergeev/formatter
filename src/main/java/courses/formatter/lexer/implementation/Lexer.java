@@ -5,16 +5,27 @@ import courses.formatter.io.reader.ReaderException;
 import courses.formatter.lexer.LexerException;
 import courses.formatter.lexer.ILexer;
 
+/**
+ * Lexer class;
+ */
 public class Lexer implements ILexer {
     private IReader reader;
     private StringBuilder lexeme;
 
+    /**
+     * Lexer constructor;
+     * @param reader - reader;
+     */
     public Lexer(final IReader reader) {
         this.reader = reader;
         this.lexeme = new StringBuilder();
     }
 
-
+    /**
+     * hasToken()
+     * @return bool;
+     * @throws LexerException - Lexer exception;
+     */
     public boolean hasToken() throws LexerException {
         try {
             return reader.hasChar();
@@ -31,8 +42,8 @@ public class Lexer implements ILexer {
      * semicolon
      * tab
      * regularCharacter
-     * @return
-     * @throws LexerException
+     * @return token;
+     * @throws LexerException - lexer exception;
      */
     public Token readToken() throws LexerException {
         String lexemeName = "";
