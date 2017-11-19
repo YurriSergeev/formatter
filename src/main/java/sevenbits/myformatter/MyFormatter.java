@@ -1,15 +1,29 @@
-package com.project.myformatter;
-import com.project.myformatter.Exceptions.ReaderException;
-import com.project.myformatter.Exceptions.WriterException;
+package sevenbits.myformatter;
+import sevenbits.myformatter.interfaces.IReader;
+import sevenbits.myformatter.interfaces.IWriter;
+import sevenbits.myformatter.exceptions.ReaderException;
+import sevenbits.myformatter.exceptions.WriterException;
 
-final public class myFormatter {
-    public static void format(final IReader reader, final IWriter writer) throws ReaderException, WriterException{
+/**
+ * MyFormatter class;
+ */
+public final class MyFormatter {
+    /**
+     * format
+     * @param reader - reader;
+     * @param writer - writer;
+     * @throws ReaderException - exception of reader;
+     * @throws WriterException - exception of writer;
+     */
+    public void format(final IReader reader, final IWriter writer) throws ReaderException, WriterException {
         int level = 0;
         char c;
         boolean nl = false;
-        while (reader.hasChar()){
+        while (reader.hasChar()) {
             c = reader.readChar();
-            switch (c){
+            switch (c) {
+                case ' ':
+                    break;
                 case '\n':
                     break;
                 case '{':
@@ -23,7 +37,7 @@ final public class myFormatter {
                     nl = true;
                     break;
                 case '}':
-                    if (nl){
+                    if (nl) {
                         writer.writeChar('\n');
                         level--;
                         newLine(level, writer);
@@ -33,7 +47,7 @@ final public class myFormatter {
                     nl = true;
                     break;
                 default:
-                    if (nl){
+                    if (nl) {
                         writer.writeChar('\n');
                         newLine(level, writer);
                         nl = false;
@@ -41,11 +55,9 @@ final public class myFormatter {
                     writer.writeChar(c);
             }
         }
-        reader.close();
-        writer.close();
     }
-    private static void newLine(int level, IWriter writer) throws WriterException{
-        for (int i = 0; i < 4*level; i++) {
+    private static void newLine(final int level, final IWriter writer) throws WriterException {
+        for (int i = 0; i < 4 * level; i++) {
             writer.writeChar(' ');
         }
     }
