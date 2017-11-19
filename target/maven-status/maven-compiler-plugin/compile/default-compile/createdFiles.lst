@@ -1,5 +1,0 @@
-sevenbits/myformatter/interfaces/IWriter.class
-sevenbits/myformatter/exceptions/CloseException.class
-sevenbits/myformatter/interfaces/IClosable.class
-sevenbits/myformatter/interfaces/IReader.class
-sevenbits/myformatter/interfaces/IMyFormatter.class
