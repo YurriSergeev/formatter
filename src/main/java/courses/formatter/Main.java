@@ -26,18 +26,16 @@ public final class Main {
      */
     public static void  main(final String[] args)  throws ReaderException, WriterException, CloseException, FormatterException {
         if (args.length == 0) {
-            System.out.print("error of args");
+            System.out.print("Usage: java -jar formatter in.java [out.java]");
             return;
         }
         try (
-                IReader reader = new FileReader(args[0]);
-                IWriter writer = new FileWriter(args.length > 1 ? args[1] : "res.java");
+                FileReader reader = new FileReader(args[0]);
+                FileWriter writer = new FileWriter(args.length > 1 ? args[1] : "res.java");
         ) {
         Formatter formatter = new Formatter();
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
-        reader.close();
-        writer.close();
         }
     }
 }

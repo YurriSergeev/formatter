@@ -13,7 +13,7 @@ import java.io.IOException;
  * FileReader class;
  */
 public class FileReader implements IReader, IClosable {
-    private char sym;
+    private int sym = -1;
     private BufferedReader buf;
     /**
      * FileReader - constructor;
@@ -23,7 +23,8 @@ public class FileReader implements IReader, IClosable {
     public FileReader(final String fileName) throws ReaderException {
         try {
             buf = new BufferedReader(new java.io.FileReader(fileName));
-        } catch (FileNotFoundException e) {
+            sym = buf.read();
+        } catch (IOException e) {
           throw new ReaderException("some problem with reading");
         }
     }
@@ -33,14 +34,7 @@ public class FileReader implements IReader, IClosable {
      * @throws ReaderException - exception of reader;
      */
     public boolean hasChar() throws ReaderException {
-        try {
-            buf.mark(1);
-            int c = buf.read();
-            buf.reset();
-            return c != -1;
-        } catch (IOException e) {
-            throw new ReaderException("some problem with reading");
-        }
+        return sym != -1;
     }
     /**
      * getChar() read next char;
@@ -48,13 +42,13 @@ public class FileReader implements IReader, IClosable {
      * @throws ReaderException - exception of reader;
      */
     public char getChar() throws ReaderException {
-        int c = ' ';
         try {
-            c = buf.read();
+            int prev = sym;
+            sym = buf.read();
+            return (char) prev;
         } catch (IOException e) {
-            new ReaderException("some problem with reading");
+            throw new ReaderException("some problem with reading");
         }
-        return (char)c;
     }
 
     /**

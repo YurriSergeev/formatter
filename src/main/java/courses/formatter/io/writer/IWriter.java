@@ -5,11 +5,11 @@ import courses.formatter.io.closable.IClosable;
 /**
  * IWriter interface;
  */
-public interface IWriter extends IClosable {
+public interface IWriter {
     /**
-     * writeChar;
-     * @param c - char;
+     * writeString;
+     * @param str - string; to write
      * @throws WriterException - exception of writer;
      */
-    void writeChar(String c) throws WriterException;
+    void writeString(String str) throws WriterException;
 }

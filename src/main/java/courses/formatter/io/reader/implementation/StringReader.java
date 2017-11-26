@@ -32,9 +32,4 @@ public class StringReader implements IReader {
         i++;
         return c;
     }
-    /**
-     * close;
-     */
-    public void close() {
-    }
 }

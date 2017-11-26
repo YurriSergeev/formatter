@@ -26,13 +26,13 @@ public class FileWriter implements IWriter, IClosable {
         }
     }
     /**
-     * writeChar - write one char;
+     * writeString - write one char;
      * @param c - char;
      * @throws WriterException - exception of writer;
      */
-    public void writeChar(final String c) throws WriterException {
+    public void writeString(final String str) throws WriterException {
         try {
-            buf.append(c);
+            buf.append(str);
         } catch (IOException e) {
             throw new WriterException("some problem with writing");
         }

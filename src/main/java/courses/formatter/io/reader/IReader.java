@@ -1,11 +1,9 @@
 package courses.formatter.io.reader;
 
-import courses.formatter.io.closable.IClosable;
-
 /**
  * IReader interface;
  */
-public interface IReader extends IClosable {
+public interface IReader {
     /**
      * readChar() - check the existence of the next char;
      * @return exists or does not exist;

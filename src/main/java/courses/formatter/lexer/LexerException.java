@@ -5,18 +5,11 @@ package courses.formatter.lexer;
  */
 public class LexerException extends Exception {
     /**
-     * LexerException constructor;
-     * @param message - message;
+     * LexerException - constructor;
+     * @param message - mes;
+     * @param e - exception;
      */
-    public LexerException(final String message) {
-        super(message);
-    }
-
-    /**
-     * * LexerException constructor;
-     * @param e - Exceptinon;
-     */
-    public LexerException(final Exception e) {
-        super(e.getMessage());
+    public LexerException(final String message, final Exception e) {
+        super(message, e);
     }
 }

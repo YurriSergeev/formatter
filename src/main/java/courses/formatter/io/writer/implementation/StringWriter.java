@@ -6,31 +6,25 @@ import courses.formatter.io.writer.IWriter;
  * StringWriter class;
  */
 public class StringWriter implements IWriter {
-    private StringBuilder str;
+    private StringBuilder strB;
     /**
      * toString
-     * @return str;
+     * @return strB;
      */
     public String toString() {
-        return str.toString();
+        return strB.toString();
     }
     /**
      * StringWriter;
      */
     public StringWriter() {
-        str = new StringBuilder();
-    }
-
-    /**
-     * writeChar;
-     * @param c - char;
-     */
-    public void writeChar(final String c) {
-        str.append(c);
+        strB = new StringBuilder();
     }
     /**
-     * close;
+     * writeString;
+     * @param str - char;
      */
-    public void close(){
+    public void writeString(final String str) {
+        strB.append(str);
     }
 }

@@ -2,6 +2,7 @@ package courses.formatter.lexer.implementation;
 
 import courses.formatter.io.reader.IReader;
 import courses.formatter.io.reader.ReaderException;
+import courses.formatter.lexer.IToken;
 import courses.formatter.lexer.LexerException;
 import courses.formatter.lexer.ILexer;
 
@@ -30,7 +31,7 @@ public class Lexer implements ILexer {
         try {
             return reader.hasChar();
         } catch (ReaderException e) {
-            throw new LexerException(e.getMessage());
+            throw new LexerException("Lexer failed", e);
         }
     }
 
@@ -42,17 +43,24 @@ public class Lexer implements ILexer {
      * semicolon
      * tab
      * regularCharacter
+     * literal
+     *
+     * TODO:
+     * single line comment support
+     * multi line comment support
+     *
      * @return token;
      * @throws LexerException - lexer exception;
      */
-    public Token readToken() throws LexerException {
+    public IToken readToken() throws LexerException {
         String lexemeName = "";
         lexeme = new StringBuilder();
         boolean lexemeFinished = false;
         int c;
+        boolean isLiteral = false;
 
         try {
-            while (reader.hasChar() && !lexemeFinished) {
+            while (reader.hasChar() && (!lexemeFinished || isLiteral)) {
                 c = reader.getChar();
                 switch (c) {
                     case ' ':
@@ -80,19 +88,25 @@ public class Lexer implements ILexer {
                         lexemeName = "semicolon";
                         lexemeFinished = true;
                         break;
+                    case '\"':
+                        lexeme.append((char) c);
+                        lexemeName = "literal";
+                        lexemeFinished = false;
+                        isLiteral = !isLiteral;
+                        break;
                     case '\t':
                         lexeme.append((char) c);
                         lexemeName = "tab";
                         lexemeFinished = true;
                         break;
                     default:
-                        lexeme.append((char)c);
+                        lexeme.append((char) c);
                         lexemeName = "regularCharacter";
                         lexemeFinished = true;
                 }
             }
         } catch (ReaderException e) {
-            throw new LexerException(e.getMessage());
+            throw new LexerException("Lexer failed", e);
         }
         return new Token(lexeme.toString(), lexemeName);
     }
