@@ -1,6 +1,5 @@
 package courses.formatter.lexer;
 
-import courses.formatter.lexer.implementation.Token;
 
 /**
  * ILexer interface;

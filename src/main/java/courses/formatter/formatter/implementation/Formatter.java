@@ -4,7 +4,6 @@ import courses.formatter.formatter.IFormatter;
 import courses.formatter.io.writer.IWriter;
 import courses.formatter.io.writer.WriterException;
 import courses.formatter.lexer.IToken;
-import courses.formatter.lexer.implementation.Token;
 import courses.formatter.lexer.LexerException;
 import courses.formatter.lexer.ILexer;
 

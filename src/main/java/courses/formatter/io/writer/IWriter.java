@@ -1,7 +1,5 @@
 package courses.formatter.io.writer;
 
-import courses.formatter.io.closable.IClosable;
-
 /**
  * IWriter interface;
  */

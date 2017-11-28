@@ -6,7 +6,6 @@ import courses.formatter.io.closable.CloseException;
 import courses.formatter.io.reader.ReaderException;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**

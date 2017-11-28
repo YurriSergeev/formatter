@@ -51,7 +51,8 @@ public final class TestsForFormatter {
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
         TestCase.assertEquals("aa;\naa{\n    bb;\n    bb;\n    cc;\n    cc;\n}", writer.toString());
-    }@Test //test of supporting string literals
+    }
+    @Test //test of supporting string literals
     public void test5() throws ReaderException, WriterException, FormatterException {
         IReader reader = new StringReader("t(t,    e,    s,    t);y(\"t,    e,    s,    t\");");
         IWriter writer = new StringWriter();

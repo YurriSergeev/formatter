@@ -27,7 +27,7 @@ public class FileWriter implements IWriter, IClosable {
     }
     /**
      * writeString - write one char;
-     * @param c - char;
+     * @param str - string to write;
      * @throws WriterException - exception of writer;
      */
     public void writeString(final String str) throws WriterException {

@@ -3,8 +3,6 @@ import courses.formatter.io.writer.implementation.FileWriter;
 import courses.formatter.formatter.implementation.Formatter;
 import courses.formatter.formatter.FormatterException;
 import courses.formatter.io.closable.CloseException;
-import courses.formatter.io.reader.IReader;
-import courses.formatter.io.writer.IWriter;
 import courses.formatter.io.reader.ReaderException;
 import courses.formatter.io.writer.WriterException;
 import courses.formatter.io.reader.implementation.FileReader;
@@ -26,7 +24,7 @@ public final class Main {
      */
     public static void  main(final String[] args)  throws ReaderException, WriterException, CloseException, FormatterException {
         if (args.length == 0) {
-            System.out.print("Usage: java -jar formatter in.java [out.java]");
+            System.out.print("Usage: java -jar formatter in.java [out.java]\n");
             return;
         }
         try (
