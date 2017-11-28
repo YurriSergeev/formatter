@@ -44,21 +44,30 @@ public final class TestsForFormatter {
         TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}", writer.toString());
     }
     @Test
-    public void test4() throws ReaderException, WriterException, FormatterException {
-        IReader reader = new StringReader("aa;aa{bb;bb;cc;cc;}");
+    public void testOfSLComment() throws ReaderException, WriterException, FormatterException {
+        IReader reader = new StringReader("a{b;c;}\n//test of sl comment\na{b;c;}");
         IWriter writer = new StringWriter();
         Formatter formatter = new Formatter();
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
-        TestCase.assertEquals("aa;\naa{\n    bb;\n    bb;\n    cc;\n    cc;\n}", writer.toString());
+        TestCase.assertEquals("a{\n    b;\n    c;\n}\n//test of sl comment\na{\n    b;\n    c;\n}", writer.toString());
     }
-    @Test //test of supporting string literals
-    public void test5() throws ReaderException, WriterException, FormatterException {
-        IReader reader = new StringReader("t(t,    e,    s,    t);y(\"t,    e,    s,    t\");");
+    @Test
+    public void testOfLiteral() throws ReaderException, WriterException, FormatterException {
+        IReader reader = new StringReader("a{b(t,    e,    s,    t)\n;c(\"t,    e,    s,    t,    \");}");
         IWriter writer = new StringWriter();
         Formatter formatter = new Formatter();
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
-        TestCase.assertEquals("t(t, e, s, t);\ny(\"t,    e,    s,    t\");", writer.toString());
+        TestCase.assertEquals("a{\n    b(t, e, s, t);\n    c(\"t,    e,    s,    t,    \");\n}", writer.toString());
+    }
+    @Test
+    public void testOfmlComment() throws ReaderException, WriterException, FormatterException {
+        IReader reader = new StringReader("a{b;c;}\n/* test of ml {}{}{}{}{};;;;;;;;;\ncomment\n */\na{b;c;}");
+        IWriter writer = new StringWriter();
+        Formatter formatter = new Formatter();
+        Lexer lexer = new Lexer(reader);
+        formatter.format(lexer, writer);
+        TestCase.assertEquals("a{\n    b;\n    c;\n}\n/* test of ml {}{}{}{}{};;;;;;;;;\ncomment\n */\na{\n    b;\n    c;\n}", writer.toString());
     }
 }

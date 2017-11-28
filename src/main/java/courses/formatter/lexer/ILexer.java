@@ -18,4 +18,10 @@ public interface ILexer {
      * @throws LexerException ex;
      */
     IToken readToken() throws LexerException;
+
+    /**
+     * ...
+     * @return ..
+     */
+    String getNextLex();
 }

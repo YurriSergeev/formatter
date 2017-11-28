@@ -12,8 +12,7 @@ import courses.formatter.lexer.ILexer;
  */
 public final class Formatter implements IFormatter {
     /**
-     *
-     * @param lexer - lexer;
+     * @param lexer  - lexer;
      * @param writer - writer;
      * @throws FormatterException - exception;
      */
@@ -21,18 +20,6 @@ public final class Formatter implements IFormatter {
         int level = 0;
         IToken c;
         boolean nl = false;
-//        space
-//        newLine
-//        openingBracket
-//        closingBracket
-//        semicolon
-//        tab
-//        regularCharacter
-//        literal
-
-//        TODO:
-//        single-line comments support;
-//        multi-line comments support;
 
         boolean spaceNeed = false;
         try {
@@ -76,6 +63,12 @@ public final class Formatter implements IFormatter {
                         spaceNeed = true;
                         break;
                     case "slComment":
+                        writer.writeString("\n");
+                        writer.writeString(c.getLexeme());
+                        spaceNeed = false;
+                        break;
+                    case "mlComment":
+                        writer.writeString("\n");
                         writer.writeString(c.getLexeme());
                         spaceNeed = false;
                         break;
@@ -94,10 +87,16 @@ public final class Formatter implements IFormatter {
                         break;
                 }
             }
+            if (lexer.getNextLex().equals("}")) {
+                writer.writeString("\n" + lexer.getNextLex());
+            } else {
+                writer.writeString("" + lexer.getNextLex());
+            }
         } catch (LexerException | WriterException e) {
             throw new FormatterException(e.getMessage());
         }
     }
+
     private static void newLine(final int level, final IWriter writer) throws WriterException {
         final int indent = 4;
         for (int i = 0; i < indent * level; i++) {

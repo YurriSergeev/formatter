@@ -12,14 +12,27 @@ import courses.formatter.lexer.ILexer;
 public class Lexer implements ILexer {
     private IReader reader;
     private StringBuilder lexeme;
+    private int nextChar;
+    private boolean firstChar = true;
 
     /**
-     * Lexer constructor;
-     * @param reader - reader;
+     * getLastLex
+     * @return next lexeme;
      */
-    public Lexer(final IReader reader) {
+    public String getNextLex() {
+
+        return "" + (char) nextChar;
+    }
+
+    /**
+     * Lexer - constructor;
+     * @param reader - reader;
+     * @throws ReaderException - ex;
+     */
+    public Lexer(final IReader reader) throws ReaderException {
         this.reader = reader;
         this.lexeme = new StringBuilder();
+        this.nextChar = reader.getChar();
     }
 
     /**
@@ -36,75 +49,130 @@ public class Lexer implements ILexer {
     }
 
     /**
-     * space
-     * newLine
-     * openingBracket
-     * closingBracket
-     * semicolon
-     * tab
-     * regularCharacter
-     * literal
      *
-     * TODO:
-     * single line comment support
-     * multi line comment support
-     *
+     *readToken
      * @return token;
      * @throws LexerException - lexer exception;
      */
     public IToken readToken() throws LexerException {
-        String lexemeName = "";
+
         lexeme = new StringBuilder();
+
+        String lexemeName = "none";
+        boolean alreadyNamed = false;
         boolean lexemeFinished = false;
-        int c;
-        boolean isLiteral = false;
+        boolean literal = false;
 
         try {
-            while (reader.hasChar() && (!lexemeFinished || isLiteral)) {
-                c = reader.getChar();
-                switch (c) {
+            while ((reader.hasChar() && !lexemeFinished) || firstChar) {
+                int currentChar = nextChar;
+                if (reader.hasChar()) {
+                    nextChar = reader.getChar();
+                }
+
+                switch (currentChar) {
                     case ' ':
-                        lexeme.append((char) c);
-                        lexemeName = "space";
-                        lexemeFinished = true;
+                        if (!alreadyNamed) {
+                            lexemeName = "space";
+                            alreadyNamed = true;
+                            lexemeFinished = true;
+                        }
+                        lexeme.append((char) currentChar);
                         break;
                     case '\n':
-                        lexeme.append((char) c);
-                        lexemeName = "newLine";
-                        lexemeFinished = true;
+                        if (!alreadyNamed) {
+                            lexemeName = "newLine";
+                            alreadyNamed = true;
+                            lexemeFinished = true;
+                        } else {
+                            if (lexemeName.equals("slComment")) {
+                                lexemeFinished = true;
+                                break;
+                            }
+                        }
+                        lexeme.append((char) currentChar);
                         break;
                     case '{':
-                        lexeme.append((char) c);
-                        lexemeName = "openingBracket";
-                        lexemeFinished = true;
+                        if (!alreadyNamed) {
+                            lexemeName = "openingBracket";
+                            alreadyNamed = true;
+                            lexemeFinished = true;
+                        }
+                        lexeme.append((char) currentChar);
                         break;
                     case '}':
-                        lexeme.append((char) c);
-                        lexemeName = "closingBracket";
-                        lexemeFinished = true;
+                        if (!alreadyNamed) {
+                            lexemeName = "closingBracket";
+                            alreadyNamed = true;
+                            lexemeFinished = true;
+                        }
+                        lexeme.append((char) currentChar);
                         break;
                     case ';':
-                        lexeme.append((char) c);
-                        lexemeName = "semicolon";
-                        lexemeFinished = true;
+                        if (!alreadyNamed) {
+                            lexemeName = "semicolon";
+                            alreadyNamed = true;
+                            lexemeFinished = true;
+                        }
+                        lexeme.append((char) currentChar);
                         break;
                     case '\"':
-                        lexeme.append((char) c);
-                        lexemeName = "literal";
-                        lexemeFinished = false;
-                        isLiteral = !isLiteral;
+                        if (!alreadyNamed) {
+                            lexemeName = "literal";
+                            alreadyNamed = true;
+                            lexemeFinished = false;
+                            literal = true;
+                        } else {
+                            if (!lexemeName.equals("slComment") && !lexemeName.equals("mlComment")) {
+                                lexemeFinished = true;
+                            }
+                        }
+                        lexeme.append((char) currentChar);
                         break;
                     case '\t':
-                        lexeme.append((char) c);
-                        lexemeName = "tab";
-                        lexemeFinished = true;
+                        if (!alreadyNamed) {
+                            lexemeName = "tab";
+                            alreadyNamed = true;
+                            lexemeFinished = true;
+                        }
+                        lexeme.append((char) currentChar);
+                        break;
+                    case '/':
+                        if (!alreadyNamed && (nextChar == '/')) {
+                            lexemeName = "slComment";
+                            alreadyNamed = true;
+                            lexemeFinished = false;
+                        }
+                        if (!alreadyNamed && (nextChar == '*')) {
+                            lexemeName = "mlComment";
+                            alreadyNamed = true;
+                            lexemeFinished = false;
+                        }
+                        lexeme.append((char) currentChar);
+                        break;
+                    case '*':
+                        lexeme.append((char) currentChar);
+                        if (alreadyNamed && (nextChar == '/') && !literal) {
+                            lexemeFinished = true;
+                            lexeme.append((char) nextChar);
+                        }
                         break;
                     default:
-                        lexeme.append((char) c);
-                        lexemeName = "regularCharacter";
-                        lexemeFinished = true;
+                        if (!alreadyNamed) {
+                            lexemeName = "regularCharacter";
+                            alreadyNamed = true;
+                            lexemeFinished = true;
+                        }
+                        lexeme.append((char) currentChar);
+                        break;
                 }
+                firstChar = false;
             }
+
+            if (!reader.hasChar() && nextChar != -1) {
+                return new Token(lexeme.toString(), lexemeName);
+            }
+
         } catch (ReaderException e) {
             throw new LexerException("Lexer failed", e);
         }
