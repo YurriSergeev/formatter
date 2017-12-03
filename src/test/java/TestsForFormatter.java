@@ -36,21 +36,13 @@ public final class TestsForFormatter {
         TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}", writer.toString());
     }
     @Test
-    public void test3() throws ReaderException, WriterException, FormatterException {
-        IReader reader = new StringReader("aaaa        {       bbbb       ;        cccc    ;            }");
-        IWriter writer = new StringWriter();
-        Lexer lexer = new Lexer(reader);
-        formatter.format(lexer, writer);
-        TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}", writer.toString());
-    }
-    @Test
     public void testOfSLComment() throws ReaderException, WriterException, FormatterException {
         IReader reader = new StringReader("a{b;c;}\n//test of sl comment\na{b;c;}");
         IWriter writer = new StringWriter();
         Formatter formatter = new Formatter();
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
-        TestCase.assertEquals("a{\n    b;\n    c;\n}\n//test of sl comment\na{\n    b;\n    c;\n}", writer.toString());
+        TestCase.assertEquals("a{\n    b;\n    c;\n}//test of sl comment\na{\n    b;\n    c;\n}", writer.toString());
     }
     @Test
     public void testOfLiteral() throws ReaderException, WriterException, FormatterException {
@@ -68,6 +60,6 @@ public final class TestsForFormatter {
         Formatter formatter = new Formatter();
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
-        TestCase.assertEquals("a{\n    b;\n    c;\n}\n/* test of ml {}{}{}{}{};;;;;;;;;\ncomment\n */\na{\n    b;\n    c;\n}", writer.toString());
+        TestCase.assertEquals("a{\n    b;\n    c;\n}/* test of ml {}{}{}{}{};;;;;;;;;\ncomment\n */\na{\n    b;\n    c;\n}", writer.toString());
     }
 }

@@ -6,8 +6,8 @@ import courses.formatter.lexer.IToken;
  * class Token;
  */
 public class Token implements IToken {
-    private String lexeme;
-    private String name;
+    private final String lexeme;
+    private final String name;
 
     /**
      * Token;
@@ -20,10 +20,10 @@ public class Token implements IToken {
     }
 
     public String getLexeme() {
-        return this.lexeme;
+        return lexeme;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 }

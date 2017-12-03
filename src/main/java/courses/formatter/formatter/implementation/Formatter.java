@@ -33,7 +33,6 @@ public final class Formatter implements IFormatter {
                         spaceNeed = false;
                         break;
                     case "newLine":
-                        spaceNeed = false;
                         break;
                     case "openingBracket":
                         writer.writeString(c.getLexeme());
@@ -62,13 +61,7 @@ public final class Formatter implements IFormatter {
                         writer.writeString(c.getLexeme());
                         spaceNeed = true;
                         break;
-                    case "slComment":
-                        writer.writeString("\n");
-                        writer.writeString(c.getLexeme());
-                        spaceNeed = false;
-                        break;
-                    case "mlComment":
-                        writer.writeString("\n");
+                    case "comment":
                         writer.writeString(c.getLexeme());
                         spaceNeed = false;
                         break;
@@ -79,19 +72,17 @@ public final class Formatter implements IFormatter {
                             nl = false;
                         }
                         writer.writeString(c.getLexeme());
-                        if (c.getLexeme().equals(",")) {
-                            writer.writeString(" ");
-                        }
+                        spaceNeed = true;
                         break;
                     default:
                         break;
                 }
             }
-            if (lexer.getNextLex().equals("}")) {
-                writer.writeString("\n" + lexer.getNextLex());
-            } else {
-                writer.writeString("" + lexer.getNextLex());
-            }
+//            if (lexer.getNextLex().equals("}")) {
+//                writer.writeString("\n" + lexer.getNextLex());
+//            } else {
+//                writer.writeString("" + lexer.getNextLex());
+//            }
         } catch (LexerException | WriterException e) {
             throw new FormatterException(e.getMessage());
         }

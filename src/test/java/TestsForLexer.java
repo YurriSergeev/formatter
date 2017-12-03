@@ -10,7 +10,7 @@ public final class TestsForLexer {
     private Lexer lexer;
     @Test
     public void test1() throws LexerException, ReaderException {
-        lexer = new Lexer(new StringReader("q"));
+        lexer = new Lexer(new StringReader("t"));
         assertEquals("regularCharacter", lexer.readToken().getName());
     }
     @Test
@@ -31,6 +31,6 @@ public final class TestsForLexer {
     @Test
     public void test5() throws LexerException, ReaderException {
         lexer = new Lexer(new StringReader("//1231312"));
-        assertEquals("slComment", lexer.readToken().getName());
+        assertEquals("comment", lexer.readToken().getName());
     }
 }
