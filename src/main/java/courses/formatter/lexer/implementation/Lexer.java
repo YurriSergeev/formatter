@@ -5,12 +5,13 @@ import courses.formatter.io.reader.ReaderException;
 import courses.formatter.lexer.ILexer;
 import courses.formatter.lexer.IToken;
 import courses.formatter.lexer.LexerException;
-import courses.formatter.stateMachine.CommandsTransition;
-import courses.formatter.stateMachine.State;
-import courses.formatter.stateMachine.StatesMap;
-import courses.formatter.stateMachine.StatesTransition;
-import courses.formatter.stateMachine.interfaces.ICommand;
-import courses.formatter.stateMachine.interfaces.ILexemeBuilder;
+import courses.formatter.lexer.stateMachine.CommandsTransition;
+import courses.formatter.statePackage.State;
+import courses.formatter.lexer.stateMachine.StatesMap;
+import courses.formatter.lexer.stateMachine.StatesTransition;
+import courses.formatter.lexer.stateMachine.interfaces.ICommand;
+import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;
+import courses.formatter.statePackage.IState;
 
 /**
  * Lexer class;
@@ -19,7 +20,7 @@ public class Lexer implements ILexer {
     private IReader reader;
     private ILexemeBuilder lexeme;
     private int nextChar;
-    private State state;
+    private IState state;
 
     /**
      * constructor;
@@ -40,7 +41,7 @@ public class Lexer implements ILexer {
      */
     public boolean hasToken() throws LexerException {
         try {
-            return reader.hasChar() || lexeme.getFinished();
+            return reader.hasChar() || lexeme.isFinished();
         } catch (ReaderException e) {
             throw  new LexerException("lexer faild", e);
         }
@@ -65,7 +66,7 @@ public class Lexer implements ILexer {
                 command = CommandsTransition.getCommand(state, (char) nextChar);
                 command.execute(lexeme, (char) nextChar);
                 state = StatesTransition.nextState(state, (char) nextChar);
-                if (lexeme.getFinished()) {
+                if (lexeme.isFinished()) {
                     return new Token(lexeme.toString(), lexeme.getName());
                 }
             }

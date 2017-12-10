@@ -1,4 +1,4 @@
-package courses.formatter.stateMachine.interfaces;
+package courses.formatter.lexer.stateMachine.interfaces;
 
 /**
  * ICommand;

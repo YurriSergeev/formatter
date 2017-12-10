@@ -8,8 +8,8 @@ public class FormatterException extends Exception {
      *
      * @param message - message;
      */
-    public FormatterException(final String message) {
-        super(message);
+    public FormatterException(final String message, final Exception e) {
+        super(message, e);
     }
 
     /**

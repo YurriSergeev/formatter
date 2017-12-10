@@ -1,7 +1,7 @@
-package courses.formatter.stateMachine.commands;
+package courses.formatter.lexer.stateMachine.commands;
 
-import courses.formatter.stateMachine.interfaces.ICommand;
-import courses.formatter.stateMachine.interfaces.ILexemeBuilder;
+import courses.formatter.lexer.stateMachine.interfaces.ICommand;
+import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;
 
 /**
  *

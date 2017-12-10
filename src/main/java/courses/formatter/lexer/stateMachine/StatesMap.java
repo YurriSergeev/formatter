@@ -1,6 +1,9 @@
-package courses.formatter.stateMachine;
+package courses.formatter.lexer.stateMachine;
 
-import javafx.util.Pair;
+
+import courses.formatter.pair.Pair;
+import courses.formatter.statePackage.IState;
+import courses.formatter.statePackage.State;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +30,7 @@ public class StatesMap {
      * @param c - char;
      * @return new state;
      */
-    State getMap(final State state, final char c) {
+    State getMap(final IState state, final char c) {
         if (hashMap.containsKey(new Pair<>(state, c))) {
             return hashMap.get(new Pair<>(state, c));
         } else {
@@ -65,13 +68,14 @@ public class StatesMap {
         hashMap.put(new Pair<>(defaultState, '\n'), resState);
         hashMap.put(new Pair<>(defaultState, '\t'), resState);
 
+        //spaces
         hashMap.put(new Pair<>(startState, ' '), spaceState);
         hashMap.put(new Pair<>(defaultState, null), defaultState);
         hashMap.put(new Pair<>(defaultState, ' '), spaceState);
         hashMap.put(new Pair<>(spaceState, null), defaultState);
         hashMap.put(new Pair<>(spaceState, ' '), spaceState);
 
-
+        //literals
         hashMap.put(new Pair<>(startState, '\"'), literalState);
         hashMap.put(new Pair<>(defaultState, '\"'), literalState);
         hashMap.put(new Pair<>(spaceState, '\"'), literalState);

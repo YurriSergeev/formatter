@@ -1,7 +1,7 @@
-package courses.formatter.stateMachine.commands;
+package courses.formatter.lexer.stateMachine.commands;
 
-import courses.formatter.stateMachine.interfaces.ICommand;
-import courses.formatter.stateMachine.interfaces.ILexemeBuilder;
+import courses.formatter.lexer.stateMachine.interfaces.ICommand;
+import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;
 
 /**
  *
@@ -13,6 +13,6 @@ public class FinishCommand implements ICommand {
      * @param c - some char;
      */
     public void execute(final ILexemeBuilder lex, final char c) {
-        lex.setFinished(true);
+        lex.setFinished();
     }
 }

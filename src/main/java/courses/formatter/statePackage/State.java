@@ -1,28 +1,21 @@
-package courses.formatter.stateMachine;
+package courses.formatter.statePackage;
 
-import courses.formatter.stateMachine.interfaces.IState;
 
 /**
  *
  */
 public class State implements IState {
 
-    private String curState;
+    private String stateName;
 
     /**
      * constructor
      * @param newState - state to name;
      */
     public State(final String newState) {
-        curState = newState;
+        stateName = newState;
     }
 
-    /**
-     * @return state name;
-     */
-    public String getState() {
-       return curState;
-    }
 
     @Override
     public boolean equals(final Object o) {
@@ -33,14 +26,23 @@ public class State implements IState {
             return false;
         }
         State state = (State) o;
-        return state.curState.equals(curState);
+        return state.stateName.equals(stateName);
     }
     @Override
     public int hashCode() {
-        return curState.hashCode();
+        return stateName.hashCode();
     }
     @Override
     public String toString() {
-        return curState;
+        return stateName;
+    }
+
+    /**
+     *
+     * @return current state name;
+     */
+    @Override
+    public String getState() {
+        return stateName;
     }
 }

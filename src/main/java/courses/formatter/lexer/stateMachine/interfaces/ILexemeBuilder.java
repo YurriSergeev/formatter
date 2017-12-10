@@ -1,4 +1,4 @@
-package courses.formatter.stateMachine.interfaces;
+package courses.formatter.lexer.stateMachine.interfaces;
 
 /**
  *
@@ -20,11 +20,10 @@ public interface ILexemeBuilder {
      *
      * @return is lexeme finished;
      */
-    boolean getFinished();
+    boolean isFinished();
 
     /**
-     * set value for isFinished;
+     *
      */
-    void setFinished(boolean finished);
-
+    void setFinished();
 }

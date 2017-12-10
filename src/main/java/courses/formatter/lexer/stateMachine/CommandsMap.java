@@ -1,10 +1,12 @@
-package courses.formatter.stateMachine;
+package courses.formatter.lexer.stateMachine;
 
-import courses.formatter.stateMachine.commands.AppendCommand;
-import courses.formatter.stateMachine.commands.FinishCommand;
-import courses.formatter.stateMachine.commands.SkipCommand;
-import courses.formatter.stateMachine.interfaces.ICommand;
-import javafx.util.Pair;
+import courses.formatter.pair.Pair;
+import courses.formatter.statePackage.State;
+import courses.formatter.lexer.stateMachine.commands.AppendCommand;
+import courses.formatter.lexer.stateMachine.commands.FinishCommand;
+import courses.formatter.lexer.stateMachine.commands.SkipCommand;
+import courses.formatter.lexer.stateMachine.interfaces.ICommand;
+import courses.formatter.statePackage.IState;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +73,7 @@ public class CommandsMap {
      * @param c next char;
      * @return next command;
      */
-    ICommand getCommand(final  State state, final char c) {
+    ICommand getCommand(final IState state, final char c) {
         if (hashMap.containsKey(new Pair<>(state, c))) {
             return hashMap.get(new Pair<>(state, c));
         } else {

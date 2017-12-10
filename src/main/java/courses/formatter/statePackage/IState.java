@@ -1,4 +1,4 @@
-package courses.formatter.stateMachine.interfaces;
+package courses.formatter.statePackage;
 
 /**
  *
@@ -6,7 +6,7 @@ package courses.formatter.stateMachine.interfaces;
 public interface IState {
     /**
      *
-     * @return state name;
+     * @return current state name;
      */
     String getState();
 }

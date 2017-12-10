@@ -1,6 +1,6 @@
 package courses.formatter.lexer.implementation;
 
-import courses.formatter.stateMachine.interfaces.ILexemeBuilder;
+import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;
 
 /**
  *
@@ -35,8 +35,15 @@ public class LexemeBuilder implements ILexemeBuilder {
     /**
      * @return is lexeme finished;
      */
-    public boolean getFinished() {
+    public boolean isFinished() {
         return isFinished;
+    }
+
+    /**
+     *
+     */
+    public void setFinished() {
+       isFinished = true;
     }
 
     /**

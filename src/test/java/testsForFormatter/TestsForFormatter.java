@@ -1,4 +1,4 @@
-
+package testsForFormatter;
 
 import courses.formatter.formatter.FormatterException;
 import courses.formatter.formatter.implementation.Formatter;
@@ -20,7 +20,7 @@ public final class TestsForFormatter {
         formatter= new Formatter();
     }
     @Test
-    public void test1() throws ReaderException, WriterException, FormatterException {
+    public void simpleTestOfNewLine() throws ReaderException, WriterException, FormatterException {
         IReader reader = new StringReader("aaaa{bbbb;cccc;}");
         IWriter writer = new StringWriter();
         Lexer lexer = new Lexer(reader);
@@ -28,7 +28,7 @@ public final class TestsForFormatter {
         TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}", writer.toString());
     }
     @Test
-    public void test2() throws ReaderException, WriterException, FormatterException {
+    public void moreNewLine() throws ReaderException, WriterException, FormatterException {
         IReader reader = new StringReader("aaaa\n\n\n\n{bbbb\n\n\n\n;\n\n\n\ncccc\n\n\n\n;\n\n\n\n}");
         IWriter writer = new StringWriter();
         Lexer lexer = new Lexer(reader);
