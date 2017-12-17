@@ -2,9 +2,9 @@ package courses.formatter.lexer.stateMachine;
 
 import courses.formatter.pair.Pair;
 import courses.formatter.statePackage.State;
-import courses.formatter.lexer.stateMachine.commands.AppendCommand;
-import courses.formatter.lexer.stateMachine.commands.FinishCommand;
-import courses.formatter.lexer.stateMachine.commands.SkipCommand;
+import courses.formatter.lexer.stateMachine.lexerCommands.AppendCommand;
+import courses.formatter.lexer.stateMachine.lexerCommands.FinishCommand;
+import courses.formatter.lexer.stateMachine.lexerCommands.SkipCommand;
 import courses.formatter.lexer.stateMachine.interfaces.ICommand;
 import courses.formatter.statePackage.IState;
 
@@ -14,29 +14,36 @@ import java.util.Map;
 /**
  *
  */
-public class CommandsMap {
-    private Map<Pair<State, Character>, ICommand> hashMap;
+public class LexerCommandsMap {
+    private Map<Pair<IState, Character>, ICommand> hashMap;
 
     /**
      *
      */
-    CommandsMap() {
+    LexerCommandsMap() {
         hashMap = new HashMap<>();
-        State startState = new State("start");
-        State defaultState = new State("default");
-        State spaceState = new State("space");
-        State resState = new State("reserved");
-        State literalState = new State("literal");
-        State commentMaybeState = new State("commentMaybe");
-        State slCommentState = new State("slComment");
-        State mlCommentState = new State("mlComment");
-        State mlCommentEndMaybeState = new State("mlCommentEndMaybe");
-
-
+        IState startState = new State("start");
+        IState defaultState = new State("default");
+        IState spaceState = new State("space");
+        IState resState = new State("reserved");
+        IState literalState = new State("literal");
+        IState commentMaybeState = new State("commentMaybe");
+        IState slCommentState = new State("slComment");
+        IState mlCommentState = new State("mlComment");
+        IState mlCommentEndMaybeState = new State("mlCommentEndMaybe");
+        IState roundBrackets = new State("roundBrackets");
 
         ICommand append = new AppendCommand();
         ICommand skip = new SkipCommand();
         ICommand finish = new FinishCommand();
+
+        hashMap.put(new Pair<>(defaultState, '('), append);
+        hashMap.put(new Pair<>(startState, '('), append);
+        hashMap.put(new Pair<>(roundBrackets, null), append);
+        hashMap.put(new Pair<>(roundBrackets, ')'), finish);
+
+
+        hashMap.put(new Pair<>(defaultState, ' '), finish);
 
         hashMap.put(new Pair<>(startState, null), append);
         hashMap.put(new Pair<>(startState, (char) -1), skip);

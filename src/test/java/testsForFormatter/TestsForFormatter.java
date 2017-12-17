@@ -20,20 +20,28 @@ public final class TestsForFormatter {
         formatter= new Formatter();
     }
     @Test
+    public void simpleTest() throws ReaderException, WriterException, FormatterException {
+        IReader reader = new StringReader("a{b;}");
+        IWriter writer = new StringWriter();
+        Lexer lexer = new Lexer(reader);
+        formatter.format(lexer, writer);
+        TestCase.assertEquals("a{\n    b;\n}\n", writer.toString());
+    }
+    @Test
     public void simpleTestOfNewLine() throws ReaderException, WriterException, FormatterException {
         IReader reader = new StringReader("aaaa{bbbb;cccc;}");
         IWriter writer = new StringWriter();
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
-        TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}", writer.toString());
+        TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}\n", writer.toString());
     }
     @Test
-    public void moreNewLine() throws ReaderException, WriterException, FormatterException {
-        IReader reader = new StringReader("aaaa\n\n\n\n{bbbb\n\n\n\n;\n\n\n\ncccc\n\n\n\n;\n\n\n\n}");
+    public void moreNewLines() throws ReaderException, WriterException, FormatterException {
+        IReader reader = new StringReader("aaaa{bbbb;\n\n\n\ncccc;\n\n\n\n}");
         IWriter writer = new StringWriter();
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
-        TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}", writer.toString());
+        TestCase.assertEquals("aaaa{\n    bbbb;\n    cccc;\n}\n", writer.toString());
     }
     @Test
     public void testOfSLComment() throws ReaderException, WriterException, FormatterException {
@@ -61,5 +69,14 @@ public final class TestsForFormatter {
         Lexer lexer = new Lexer(reader);
         formatter.format(lexer, writer);
         TestCase.assertEquals("a{\n    b;\n    c;\n}/* test of ml {}{}{}{}{};;;;;;;;;\ncomment\n */\na{\n    b;\n    c;\n}", writer.toString());
+    }
+    @Test
+    public void testCycles() throws ReaderException, WriterException, FormatterException {
+        IReader reader = new StringReader("for (int i = 0; i++; i < N) {}");
+        IWriter writer = new StringWriter();
+        Formatter formatter = new Formatter();
+        Lexer lexer = new Lexer(reader);
+        formatter.format(lexer, writer);
+        TestCase.assertEquals("for (int i = 0; i++; i < N) {\n}\n", writer.toString());
     }
 }

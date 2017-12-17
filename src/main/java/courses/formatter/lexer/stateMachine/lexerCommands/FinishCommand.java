@@ -1,4 +1,4 @@
-package courses.formatter.lexer.stateMachine.commands;
+package courses.formatter.lexer.stateMachine.lexerCommands;
 
 import courses.formatter.lexer.stateMachine.interfaces.ICommand;
 import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;
@@ -6,14 +6,13 @@ import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;
 /**
  *
  */
-public class AppendCommand implements ICommand {
+public class FinishCommand implements ICommand {
     /**
-     *
+     * sets isFinished
      * @param lex - lexemeBuilder;
-     * @param c - char to append;
+     * @param c - some char;
      */
     public void execute(final ILexemeBuilder lex, final char c) {
-        lex.append(c);
-        //lex.setFinished(false);
+        lex.setFinished();
     }
 }

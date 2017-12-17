@@ -5,7 +5,7 @@ import courses.formatter.statePackage.IState;
 /**
  *
  */
-public class StatesTransition {
+public class LexerStatesTransition {
     /**
      *
      * @param state current state;
@@ -13,6 +13,6 @@ public class StatesTransition {
      * @return next state
      */
     public static IState nextState(final IState state, final char c) {
-        return (new StatesMap()).getMap(state, c);
+        return (new LexerStatesMap()).getMap(state, c);
     }
 }

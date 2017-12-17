@@ -6,7 +6,7 @@ import courses.formatter.statePackage.IState;
 /**
  *
  */
-public class CommandsTransition {
+public class LexerCommandsTransition {
     /**
      *
      * @param state current state;
@@ -14,6 +14,6 @@ public class CommandsTransition {
      * @return command;
      */
     public static ICommand getCommand(final IState state, final char c) {
-        return (new CommandsMap()).getCommand(state, c);
+        return (new LexerCommandsMap()).getCommand(state, c);
     }
 }

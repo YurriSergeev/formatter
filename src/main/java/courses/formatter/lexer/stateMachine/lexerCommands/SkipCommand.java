@@ -1,4 +1,4 @@
-package courses.formatter.lexer.stateMachine.commands;
+package courses.formatter.lexer.stateMachine.lexerCommands;
 
 import courses.formatter.lexer.stateMachine.interfaces.ICommand;
 import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;

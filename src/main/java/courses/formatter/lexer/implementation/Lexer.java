@@ -5,10 +5,10 @@ import courses.formatter.io.reader.ReaderException;
 import courses.formatter.lexer.ILexer;
 import courses.formatter.lexer.IToken;
 import courses.formatter.lexer.LexerException;
-import courses.formatter.lexer.stateMachine.CommandsTransition;
+import courses.formatter.lexer.stateMachine.LexerCommandsTransition;
 import courses.formatter.statePackage.State;
-import courses.formatter.lexer.stateMachine.StatesMap;
-import courses.formatter.lexer.stateMachine.StatesTransition;
+import courses.formatter.lexer.stateMachine.LexerStatesMap;
+import courses.formatter.lexer.stateMachine.LexerStatesTransition;
 import courses.formatter.lexer.stateMachine.interfaces.ICommand;
 import courses.formatter.lexer.stateMachine.interfaces.ILexemeBuilder;
 import courses.formatter.statePackage.IState;
@@ -29,7 +29,7 @@ public class Lexer implements ILexer {
     public Lexer(final IReader reader) {
         this.reader = reader;
         lexeme = new LexemeBuilder();
-        state = StatesMap.getStartState();
+        state = LexerStatesMap.getStartState();
         nextChar = -1;
     }
 
@@ -58,14 +58,14 @@ public class Lexer implements ILexer {
         lexeme = new LexemeBuilder();
         state = new State("start");
         try {
-            command = CommandsTransition.getCommand(state, (char) nextChar);
+            command = LexerCommandsTransition.getCommand(state, (char) nextChar);
             command.execute(lexeme, (char) nextChar);
-            state = StatesTransition.nextState(state, (char) nextChar);
+            state = LexerStatesTransition.nextState(state, (char) nextChar);
             while (reader.hasChar()) {
                 nextChar = reader.getChar();
-                command = CommandsTransition.getCommand(state, (char) nextChar);
+                command = LexerCommandsTransition.getCommand(state, (char) nextChar);
                 command.execute(lexeme, (char) nextChar);
-                state = StatesTransition.nextState(state, (char) nextChar);
+                state = LexerStatesTransition.nextState(state, (char) nextChar);
                 if (lexeme.isFinished()) {
                     return new Token(lexeme.toString(), lexeme.getName());
                 }

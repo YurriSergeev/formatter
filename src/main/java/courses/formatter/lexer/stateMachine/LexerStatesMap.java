@@ -12,15 +12,15 @@ import java.util.Map;
 /**
  *
  */
-public class StatesMap {
-    private static State startState = new State("start");
-    private Map<Pair<State, Character>, State> hashMap;
+public class LexerStatesMap {
+    private static IState startState = new State("start");
+    private Map<Pair<IState, Character>, IState> hashMap;
 
     /**
      * getting start state;
      * @return startState;
      */
-    public static State getStartState() {
+    public static IState getStartState() {
         return startState;
     }
 
@@ -30,7 +30,7 @@ public class StatesMap {
      * @param c - char;
      * @return new state;
      */
-    State getMap(final IState state, final char c) {
+    IState getMap(final IState state, final char c) {
         if (hashMap.containsKey(new Pair<>(state, c))) {
             return hashMap.get(new Pair<>(state, c));
         } else {
@@ -41,17 +41,23 @@ public class StatesMap {
     /**
      *
      */
-    StatesMap() {
+    LexerStatesMap() {
         hashMap = new HashMap<>();
-        State defaultState = new State("default");
-        State spaceState = new State("space");
-        State resState = new State("reserved");
-        State literalState = new State("literal");
-        State commentMaybeState = new State("commentMaybe");
-        State slCommentState = new State("slComment");
-        State mlCommentState = new State("mlComment");
-        State mlCommentEndMaybeState = new State("mlCommentEndMaybe");
+        IState defaultState = new State("default");
+        IState spaceState = new State("space");
+        IState resState = new State("reserved");
+        IState literalState = new State("literal");
+        IState commentMaybeState = new State("commentMaybe");
+        IState slCommentState = new State("slComment");
+        IState mlCommentState = new State("mlComment");
+        IState mlCommentEndMaybeState = new State("mlCommentEndMaybe");
+        IState roundBrackets = new State("roundBrackets");
 
+
+        hashMap.put(new Pair<>(defaultState, '('), roundBrackets);
+        hashMap.put(new Pair<>(startState, '('), roundBrackets);
+        hashMap.put(new Pair<>(roundBrackets, null), roundBrackets);
+        hashMap.put(new Pair<>(roundBrackets, ')'), defaultState);
 
         hashMap.put(new Pair<>(startState, null), defaultState);
         hashMap.put(new Pair<>(startState, (char) -1), startState);
