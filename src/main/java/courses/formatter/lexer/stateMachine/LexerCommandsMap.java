@@ -39,8 +39,8 @@ public class LexerCommandsMap {
 
         hashMap.put(new Pair<>(defaultState, '('), append);
         hashMap.put(new Pair<>(startState, '('), append);
-        hashMap.put(new Pair<>(roundBrackets, null), append);
-        hashMap.put(new Pair<>(roundBrackets, ')'), finish);
+        hashMap.put(new Pair<>(roundBrackets, null), finish);
+        hashMap.put(new Pair<>(defaultState, ')'), finish);
 
 
         hashMap.put(new Pair<>(defaultState, ' '), finish);

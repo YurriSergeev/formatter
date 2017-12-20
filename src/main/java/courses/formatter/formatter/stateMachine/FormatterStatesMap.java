@@ -21,6 +21,7 @@ public class FormatterStatesMap {
         hashMap = new HashMap<>();
         IState defaultState = new State("default");
         IState nlState = new State("nlState");
+        IState inBrackets = new State("inBrackets");
 
 
         hashMap.put(new Pair<>(defaultState,  null), defaultState);
@@ -36,6 +37,10 @@ public class FormatterStatesMap {
         hashMap.put(new Pair<>(nlState,  "closingBracket"), nlState);
         hashMap.put(new Pair<>(nlState,  "semicolon"), nlState);
         hashMap.put(new Pair<>(nlState,  "newLine"), nlState);
+
+        hashMap.put(new Pair<>(defaultState, "openingRoundBracket"), inBrackets);
+        hashMap.put(new Pair<>(inBrackets, null), inBrackets);
+        hashMap.put(new Pair<>(inBrackets, "closingRoundBracket"), defaultState);
 
 
 

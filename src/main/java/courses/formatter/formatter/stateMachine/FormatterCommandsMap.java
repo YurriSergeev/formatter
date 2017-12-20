@@ -25,6 +25,7 @@ public class FormatterCommandsMap {
 
         IState defaultState = new State("default");
         IState nlState = new State("nlState");
+        IState inBrackets = new State("inBrackets");
 
         ICommand appendClBr = new AppendClosingBracket();
         ICommand append = new Append();
@@ -54,6 +55,9 @@ public class FormatterCommandsMap {
 
         hashMap.put(new Pair<>(defaultState, "literal"), appendLiteral);
         hashMap.put(new Pair<>(nlState, "literal"), appendLiteral);
+
+        hashMap.put(new Pair<>(inBrackets, null), append);
+
 
 
     }

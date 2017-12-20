@@ -23,6 +23,9 @@ public class LexemeMap {
         hashMap.put(";", "semicolon");
         hashMap.put("/", "comment");
         hashMap.put("\"", "literal");
+
+        hashMap.put("(", "openingRoundBracket");
+        hashMap.put(")", "closingRoundBracket");
     }
 
     /**
